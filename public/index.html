@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이티에스 산업신문 · 이차전지 장비 · 전해액 주액 설비 · AMR 전문 뉴스</title>
+<meta name="description" content="이차전지 장비 · 전해액 주액 설비 · AMR 전문 뉴스 — 이차전지 장비, 안전, 경제, 고용노동부 관련 뉴스를 매일 아침 자동 업데이트합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --paper:#f7f4ec; --paper2:#fffdf8; --rule:#1a1a1a;
+  --muted:#6b6459; --line:#d8d1c2; --link:#111;
+  --red:#b3261e; --blue:#1f4e79; --green:#1f6b3b; --gold:#8a6d1a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Noto Sans KR',system-ui,sans-serif; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--link); text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* 제호 */
+.masthead{max-width:1180px;margin:0 auto;padding:18px 20px 0}
+.masthead-top{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  font-size:12.5px;color:var(--muted);letter-spacing:.02em;
+  border-bottom:1px solid var(--ink);padding-bottom:8px;
+}
+.masthead-main{text-align:center;padding:14px 0 6px;
+  border-bottom:3px double var(--ink)}
+.paper-title{
+  font-family:'Nanum Myeongjo',serif;font-weight:800;
+  font-size:clamp(38px,7vw,74px);margin:0;letter-spacing:.04em;line-height:1;
+}
+.paper-en{font-size:12px;letter-spacing:.5em;color:var(--muted);
+  margin-top:8px;padding-left:.5em}
+.masthead-sub{text-align:center;font-size:13.5px;color:var(--muted);
+  padding:8px 0 12px;letter-spacing:.03em}
+
+/* 속보 티커 */
+.ticker{display:flex;align-items:stretch;background:var(--ink);color:#f7f4ec;
+  overflow:hidden;max-width:1180px;margin:0 auto}
+.ticker-label{background:var(--red);color:#fff;font-weight:700;font-size:12.5px;
+  padding:7px 14px;white-space:nowrap;display:flex;align-items:center;letter-spacing:.1em}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 60s linear infinite}
+.ticker-track span{padding:7px 0 7px 18px;font-size:13px}
+.tk-dot{color:#c9a227;padding:0 4px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker:hover .ticker-track{animation-play-state:paused}
+
+/* 섹션 내비게이션 */
+.section-nav{position:sticky;top:0;z-index:20;background:var(--paper2);
+  border-bottom:2px solid var(--ink);border-top:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;
+  padding:0 12px}
+.nav-inner a{font-size:13px;font-weight:500;padding:11px 12px;white-space:nowrap;
+  color:var(--ink);border-bottom:2px solid transparent}
+.nav-inner a:hover{border-bottom-color:var(--red);text-decoration:none}
+
+.wrap{max-width:1180px;margin:0 auto;padding:22px 20px 40px}
+
+/* 상단: 브리핑 + 리드 */
+.top-grid{display:grid;grid-template-columns:260px 1fr;gap:26px;
+  padding-bottom:18px;margin-bottom:8px;border-bottom:3px double var(--ink)}
+.briefing{border:1px solid var(--line);background:var(--paper2);padding:16px 16px 14px;
+  align-self:start}
+.briefing h2{font-family:'Nanum Myeongjo',serif;font-size:19px;margin:0 0 10px;
+  border-bottom:2px solid var(--ink);padding-bottom:6px}
+.brief-total{font-size:13px;color:var(--muted);margin:0 0 10px}
+.brief-total strong{color:var(--red);font-size:15px}
+.brief-list{list-style:none;margin:0;padding:0}
+.brief-list li{display:flex;justify-content:space-between;align-items:center;
+  padding:6px 0;border-bottom:1px dotted var(--line);font-size:13.5px}
+.brief-list a{font-weight:500}
+.brief-list .cnt{font-size:11px;color:#fff;background:var(--ink);border-radius:10px;
+  padding:1px 8px;min-width:22px;text-align:center}
+.brief-time{font-size:11.5px;color:var(--muted);margin:12px 0 0}
+
+/* 섹션 공통 */
+.news-section{margin:26px 0 8px;padding-top:6px}
+.rest-sections .news-section{border-top:1px solid var(--line);margin-top:0;padding-top:22px}
+.section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:16px}
+.section-head h2{font-family:'Nanum Myeongjo',serif;font-weight:800;font-size:24px;
+  margin:0;letter-spacing:.02em;scroll-margin-top:52px}
+.section-head .tagline{font-size:12.5px;color:var(--muted)}
+.accent-red .section-head{border-bottom-color:var(--red)}
+.accent-red .section-head h2{color:var(--red)}
+.accent-blue .section-head h2{color:var(--blue)}
+.accent-green .section-head h2{color:var(--green)}
+.accent-gold .section-head h2{color:var(--gold)}
+
+/* 기사 카드 */
+.columns{column-count:3;column-gap:26px}
+@media(max-width:900px){.columns{column-count:2}}
+@media(max-width:620px){.columns{column-count:1}}
+.article{break-inside:avoid;padding:0 0 14px;margin:0 0 14px;
+  border-bottom:1px solid var(--line)}
+.article .headline{font-family:'Nanum Myeongjo',serif;font-weight:700;
+  font-size:16.5px;line-height:1.35;margin:0 0 6px}
+.article .headline a:hover{color:var(--red)}
+.article .meta{font-size:12px;color:var(--muted)}
+.article .meta .src{font-weight:500;color:#4a4a4a}
+.article .meta .dot{padding:0 5px}
+.article.placeholder{opacity:.7}
+.article.placeholder .headline{font-style:italic;font-weight:400;font-size:15px}
+
+/* 리드(머리기사) */
+.lead-wrap{display:block}
+.lead .article.big{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:16px}
+.lead .article.big .headline{font-size:clamp(24px,3vw,32px);line-height:1.2}
+.lead .article.big .meta{font-size:13px}
+.lead-rest.columns{column-count:2}
+@media(max-width:620px){.lead-rest.columns{column-count:1}}
+
+@media(max-width:820px){
+  .top-grid{grid-template-columns:1fr}
+}
+
+/* 푸터 */
+.site-footer{background:var(--ink);color:#e7e2d6;margin-top:20px}
+.footer-inner{max-width:1180px;margin:0 auto;padding:26px 20px;
+  display:grid;grid-template-columns:1fr 1.4fr;gap:24px}
+@media(max-width:700px){.footer-inner{grid-template-columns:1fr}}
+.footer-title{font-family:'Nanum Myeongjo',serif;font-size:22px;font-weight:800}
+.footer-desc{font-size:12.5px;color:#b7b1a3;margin-top:6px}
+.footer-note p{font-size:12px;color:#b7b1a3;line-height:1.7;margin:0 0 8px}
+
+/* 맨 위로 */
+.to-top{position:fixed;right:18px;bottom:18px;width:42px;height:42px;
+  border:none;border-radius:50%;background:var(--ink);color:#fff;cursor:pointer;
+  font-size:14px;box-shadow:0 2px 10px rgba(0,0,0,.25);z-index:30}
+.to-top:hover{background:var(--red)}
+
+@media print{
+  .ticker,.section-nav,.to-top{display:none}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-top">
+    <span>제 590 호</span>
+    <span>2026년 8월 13일 목요일</span>
+    <span>충남 아산시 음봉면 · ETS (이티에스) 발행</span>
+  </div>
+  <div class="masthead-main">
+    <h1 class="paper-title">이티에스 산업신문</h1>
+    <div class="paper-en">ETS INDUSTRY DAILY</div>
+  </div>
+  <div class="masthead-sub">이차전지 장비 · 전해액 주액 설비 · AMR 전문 뉴스</div>
+</header>
+<div class="ticker" aria-label="속보"><span class="ticker-label">속보</span><div class="ticker-track"><span>첫 자동 수집을 기다리는 중입니다 — 매일 아침 8시 자동 갱신</span><span aria-hidden="true">첫 자동 수집을 기다리는 중입니다 — 매일 아침 8시 자동 갱신</span></div></div>
+<nav class="section-nav"><div class="nav-inner"><a href="#headline">종합 헤드라인</a><a href="#company">기업·고객사 동향</a><a href="#safety">안전·산업재해</a><a href="#labor">고용노동부·산업안전보건</a><a href="#economy">경제·산업 전망</a><a href="#automation">AMR·스마트팩토리</a><a href="#global">글로벌 배터리</a><a href="#tech">기술 동향</a></div></nav>
+<main class="wrap">
+  <div class="top-grid">
+    <aside class="briefing"><h2>오늘의 브리핑</h2><p class="brief-total">오늘 지면에 <strong>0</strong>건의 기사가 실렸습니다.</p><ul class="brief-list"><li><a href="#headline">종합 헤드라인</a><span class="cnt">0</span></li><li><a href="#company">기업·고객사 동향</a><span class="cnt">0</span></li><li><a href="#safety">안전·산업재해</a><span class="cnt">0</span></li><li><a href="#labor">고용노동부·산업안전보건</a><span class="cnt">0</span></li><li><a href="#economy">경제·산업 전망</a><span class="cnt">0</span></li><li><a href="#automation">AMR·스마트팩토리</a><span class="cnt">0</span></li><li><a href="#global">글로벌 배터리</a><span class="cnt">0</span></li><li><a href="#tech">기술 동향</a><span class="cnt">0</span></li></ul><p class="brief-time">최종 갱신: 2026.08.13 09:22 (KST)</p></aside>
+    <div class="lead-column">
+      <section class="news-section accent-default"><div class="section-head accent-default"><h2 id="headline">종합 헤드라인</h2><span class="tagline">이차전지 장비 산업 주요 뉴스</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘종합 헤드라인’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section>
+    </div>
+  </div>
+  <div class="rest-sections">
+    <section class="news-section accent-blue"><div class="section-head accent-blue"><h2 id="company">기업·고객사 동향</h2><span class="tagline">이티에스(ETS) · LG에너지솔루션 · 장비업계</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘기업·고객사 동향’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section><section class="news-section accent-red"><div class="section-head accent-red"><h2 id="safety">안전·산업재해</h2><span class="tagline">배터리 공장 화재 · 산업안전 · 중대재해</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘안전·산업재해’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section><section class="news-section accent-green"><div class="section-head accent-green"><h2 id="labor">고용노동부·산업안전보건</h2><span class="tagline">정책 · 중대재해처벌법 · 근로환경</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘고용노동부·산업안전보건’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section><section class="news-section accent-gold"><div class="section-head accent-gold"><h2 id="economy">경제·산업 전망</h2><span class="tagline">이차전지 시황 · 투자 · 수주</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘경제·산업 전망’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section><section class="news-section accent-blue"><div class="section-head accent-blue"><h2 id="automation">AMR·스마트팩토리</h2><span class="tagline">자율주행로봇 · 물류자동화 · 스마트공장</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘AMR·스마트팩토리’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section><section class="news-section accent-default"><div class="section-head accent-default"><h2 id="global">글로벌 배터리</h2><span class="tagline">해외 공장 · 북미/유럽 · 공급망</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘글로벌 배터리’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section><section class="news-section accent-default"><div class="section-head accent-default"><h2 id="tech">기술 동향</h2><span class="tagline">전해액 · 전고체 · 차세대 배터리</span></div><div class="columns"><article class="article placeholder"><h3 class="headline">첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다</h3><div class="meta"><span class="src">안내 · 아직 수집 전</span></div></article><article class="article placeholder"><h3 class="headline">‘기술 동향’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다</h3><div class="meta"><span class="src">이티에스 산업신문</span></div></article></div></section>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-title">이티에스 산업신문</div>
+      <div class="footer-desc">ETS (이티에스) · 이차전지 제조장비 · 전해액 주액 설비 · AMR(자율주행로봇) 제작</div>
+      <div class="footer-desc">충남 아산시 음봉면</div>
+    </div>
+    <div class="footer-note">
+      <p>본 지면의 기사는 구글 뉴스(Google News)에서 관련 키워드로 자동 수집·요약한 것으로,
+         각 기사의 저작권은 해당 언론사에 있습니다. 제목을 누르면 원문으로 이동합니다.</p>
+      <p>매일 아침 8시(KST) 자동 갱신 · 최종 갱신 2026.08.13 09:22</p>
+    </div>
+  </div>
+</footer>
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="맨 위로">▲</button>
+</body>
+</html>

@@ -1,0 +1,166 @@
+{
+  "generated_at": "2026-08-13T09:22:22.089604+09:00",
+  "paper": "이티에스 산업신문",
+  "sections": [
+    {
+      "id": "headline",
+      "name": "종합 헤드라인",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘종합 헤드라인’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "company",
+      "name": "기업·고객사 동향",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘기업·고객사 동향’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "name": "안전·산업재해",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘안전·산업재해’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "labor",
+      "name": "고용노동부·산업안전보건",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘고용노동부·산업안전보건’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "economy",
+      "name": "경제·산업 전망",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘경제·산업 전망’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "automation",
+      "name": "AMR·스마트팩토리",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘AMR·스마트팩토리’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "global",
+      "name": "글로벌 배터리",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘글로벌 배터리’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "name": "기술 동향",
+      "articles": [
+        {
+          "title": "첫 자동 수집이 완료되면 이 자리에 실제 기사가 표시됩니다",
+          "link": "#",
+          "source": "안내 · 아직 수집 전",
+          "published": null,
+          "placeholder": true
+        },
+        {
+          "title": "‘기술 동향’ 섹션은 매일 아침 8시에 자동으로 갱신됩니다",
+          "link": "#",
+          "source": "이티에스 산업신문",
+          "published": null,
+          "placeholder": true
+        }
+      ]
+    }
+  ]
+}
