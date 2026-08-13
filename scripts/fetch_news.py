@@ -291,8 +291,8 @@ def build_html(sections_data: list[tuple[dict, list[dict]]], ref: datetime) -> s
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(SITE['paper_name'])} · {esc(SITE['subtitle'])}</title>
-<meta name="description" content="{esc(SITE['subtitle'])} — 이차전지 장비, 안전, 경제, 고용노동부 관련 뉴스를 매일 아침 자동 업데이트합니다.">
+<title>{esc(SITE['paper_name'])}</title>
+<meta name="description" content="{esc(SITE['paper_name'])} — 관련 뉴스를 매일 아침 자동 업데이트합니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -303,13 +303,10 @@ def build_html(sections_data: list[tuple[dict, list[dict]]], ref: datetime) -> s
   <div class="masthead-top">
     <span>제 {issue_no:,} 호</span>
     <span>{esc(date_line)}</span>
-    <span>{esc(SITE['location'])} · {esc(SITE['company'])} 발행</span>
   </div>
   <div class="masthead-main">
     <h1 class="paper-title">{esc(SITE['paper_name'])}</h1>
-    <div class="paper-en">{esc(SITE['paper_name_en'])}</div>
   </div>
-  <div class="masthead-sub">{esc(SITE['subtitle'])}</div>
 </header>
 {render_ticker(all_articles)}
 {render_nav()}
@@ -328,8 +325,6 @@ def build_html(sections_data: list[tuple[dict, list[dict]]], ref: datetime) -> s
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="footer-title">{esc(SITE['paper_name'])}</div>
-      <div class="footer-desc">{esc(SITE['company'])} · {esc(SITE['company_desc'])}</div>
-      <div class="footer-desc">{esc(SITE['location'])}</div>
     </div>
     <div class="footer-note">
       <p>본 지면의 기사는 구글 뉴스(Google News)에서 관련 키워드로 자동 수집·요약한 것으로,

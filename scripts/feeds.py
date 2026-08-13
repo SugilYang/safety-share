@@ -126,12 +126,7 @@ SECTIONS = [
 
 # 사이트 기본 정보 ------------------------------------------------------------
 SITE = {
-    "paper_name": "이티에스 산업신문",
-    "paper_name_en": "ETS INDUSTRY DAILY",
-    "subtitle": "이차전지 장비 · 전해액 주액 설비 · AMR 전문 뉴스",
-    "company": "ETS (이티에스)",
-    "company_desc": "이차전지 제조장비 · 전해액 주액 설비 · AMR(자율주행로봇) 제작",
-    "location": "충남 아산시 음봉면",
-    "epoch": "2025-01-01",  # 발행 호수 계산 기준일
-    "articles_per_source": 12,  # 피드 하나당 읽어올 최대 항목 수
+    "paper_name": "이티에스",         # 제호 (한글만 표시)
+    "epoch": "2025-01-01",           # 발행 호수 계산 기준일
+    "articles_per_source": 12,       # 피드 하나당 읽어올 최대 항목 수
 }
