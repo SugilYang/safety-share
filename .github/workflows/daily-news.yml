@@ -6,15 +6,10 @@ on:
     # GitHub Actions cron은 UTC 기준. 08:00 KST = 23:00 UTC (전날)
     - cron: "0 23 * * *"
   workflow_dispatch: {}   # 저장소 Actions 탭에서 '수동 실행' 가능
-  push:
-    branches: [ main, master ]
-    paths:
-      - "scripts/**"
-      - ".github/workflows/daily-news.yml"
 
-# GitHub Pages 배포에 필요한 권한
+# 생성물 커밋(contents:write) + Pages 배포 권한
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -41,16 +36,35 @@ jobs:
       - name: 뉴스 수집 및 지면 생성
         run: python scripts/fetch_news.py
 
-      - name: Pages 설정 (자동 활성화 포함)
+      # 생성된 지면을 저장소에 커밋(아카이브 + Pages 미사용 시에도 열람 가능)
+      - name: 생성물 커밋
+        run: |
+          git config user.name "ETS News Bot"
+          git config user.email "actions@github.com"
+          git add public
+          if git diff --staged --quiet; then
+            echo "변경 없음"
+          else
+            git commit -m "자동 발행: $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+
+      # 아래 Pages 단계는 저장소 Settings→Pages에서 Source를 'GitHub Actions'로
+      # 한 번 켜면 매일 자동 배포됩니다. 아직 안 켰다면 실패해도 위 커밋은 유지됩니다.
+      - name: Pages 설정 (자동 활성화 시도)
+        id: pages
+        continue-on-error: true
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
       - name: 지면 업로드
+        if: steps.pages.outcome == 'success'
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
       - name: GitHub Pages 배포
+        if: steps.pages.outcome == 'success'
         id: deployment
         uses: actions/deploy-pages@v4
