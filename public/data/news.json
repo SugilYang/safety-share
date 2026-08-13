@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-13T10:36:31.290939+09:00",
-  "paper": "이티에스 산업신문",
+  "generated_at": "2026-08-13T11:03:01.910841+09:00",
+  "paper": "이티에스",
   "sections": [
     {
       "id": "headline",
@@ -58,7 +58,7 @@
         {
           "title": "검사장비 발 넓히는 ISP… 반도체·이차전지까지 - 머니투데이",
           "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5aU1ZkVkpJUjluS3dPbGZ0b1IzN2Y2ZGhpLTBJTnNKZTR3MW5Pbklqc1dLa18yZGpBbVZ6U255ZjFmUG0yQktINVNELU40ZXdyMW40dU54ZzFERXdVWXROSnJqWWhWVFFRUWc1Y3dKOUNid9IBckFVX3lxTE5aU1ZkVkpJUjluS3dPbGZ0b1IzN2Y2ZGhpLTBJTnNKZTR3MW5Pbklqc1dLa18yZGpBbVZ6U255ZjFmUG0yQktINVNELU40ZXdyMW40dU54ZzFERXdVWXROSnJqWWhWVFFRUWc1Y3dKOUNidw?oc=5",
-          "source": "mt.co.kr",
+          "source": "머니투데이",
           "published": "2026-08-12T04:01:00+09:00",
           "placeholder": false
         },
@@ -85,7 +85,7 @@
         {
           "title": "GM 전기차와 ESS 전략 재편 향방 주목, LG에너지솔루션 역할 커지고 삼성SDI는 축소 가닥",
           "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5GakhIVlQyU1VxdGx5YkFqX2dXN05QV2NTeTI5UkVQTUJuV3FLSDZlbnhnNnJCWThJRWN3dzZhb2RhblNfMVlkVVNPNmx5QlBsQWh3UGszYjJiNmttd3ZYOHVKWUNCVFhXSnRNejkybU9JVHM?oc=5",
-          "source": "businesspost.co.kr",
+          "source": "비즈니스포스트",
           "published": "2026-08-12T14:34:33+09:00",
           "placeholder": false
         },
@@ -154,7 +154,7 @@
         {
           "title": "폭염에 화재 위험 급증...리튬이온배터리 화재 주의보",
           "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBDY2RGZURWVWh1VG5obnZuV2JVU242QUdvNk1TMmplNzBhV1NxajJ0S201MVN4X3BXcjh3dFF0cjdGZHlBbDJhelNVcktSR0RBdy1OR2FSLXJOQzgzcU5MdUdQdk9YejdPQ253?oc=5",
-          "source": "domin.co.kr",
+          "source": "전북도민일보",
           "published": "2026-08-09T15:30:00+09:00",
           "placeholder": false
         },
@@ -189,7 +189,7 @@
         {
           "title": "파나소닉 美 캔자스 배터리 공장 화재…직원 긴급 대피 소동",
           "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE53TWg1LTVaYmlFdFloTGJTckFEUmVZdXVEOFlOSUsxa3pNcjZhSXJkdWRLWHFmQWUwZnFhRXY5eXhVRktSdHNaak1Id1h4cWZWUzg4Ykw0Ty02dXAtVXJjN21VWQ?oc=5",
-          "source": "theguru.co.kr",
+          "source": "더구루",
           "published": "2026-07-30T16:00:00+09:00",
           "placeholder": false
         }
@@ -199,6 +199,13 @@
       "id": "labor",
       "name": "고용노동부·산업안전보건",
       "articles": [
+        {
+          "title": "고용노동부 충주지청, 음성 대소산업단지서 '안전문화 실천 관계기관 합동 캠페인' 진행",
+          "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBPSTNWeTNSNV96WUF5RW84RHhDcU1kbUJMWWdNUUFYUjU2OGdJVnBvYk5fX3FWZDljeUJOZUtnM2VTdnl0elZLN1plRW9LNmR0OFMwQ0wzNjhUSGQ0Nks4UC1B?oc=5",
+          "source": "충북일보",
+          "published": "2026-08-13T10:55:31+09:00",
+          "placeholder": false
+        },
         {
           "title": "어깨띠 두르고 부곡산단으로..당진시, 산업재해예방 민관 합동 캠페인",
           "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5HYm1zUzJRU2ltN1h4a2xaZmk4V0M3c1paZ21LZDFJUldVRWIteDB6S05WaVVuQUVkbzk2YWJuQXNfYWtoUFY4Ym5vR1BxRnFTVE9yTU1DSzZhclhCbXJHUlpmY21tNzFa?oc=5",
@@ -239,13 +246,6 @@
           "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBxVkp6M09CbUNOLVZsQTUyVUZCbERjbE5IcVVEQ0t3LW5Pa0FIYU40THkwNEtkR19NNWxoQ2t4NWxYcUNTbXZUNDJ5VzRwTUw1TzFESQ?oc=5",
           "source": "v.daum.net",
           "published": "2026-08-12T10:56:52+09:00",
-          "placeholder": false
-        },
-        {
-          "title": "대법원 판결을 앞둔, 아리셀 참사 진상규명 투쟁의 과제",
-          "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBGMlRYU1BqdXlZY1BqMlRmUkI5c0pYTEFKYTRQUnM2UzBUdFduN3ZhLUhLelE0ODVHWmJrTThvai1kYjlRT211Tlo2RXZUZTA?oc=5",
-          "source": "v.daum.net",
-          "published": "2026-08-12T10:22:52+09:00",
           "placeholder": false
         }
       ]
@@ -299,7 +299,7 @@
         {
           "title": "중저가부터 하이엔드까지…차세대 배터리 소재 보폭 넓히는 에코프로 - 머니투데이",
           "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE91dUxrZzVza0U5M0FRdVVjc3dXdnVsNm4xRURWR3BIMks0VUI4d2FlbGpudFRuRjljUnhNbk9LLXVwRGxUOU1QUEVhbnJEbnBVVnJReXVZN21aY1M3dGxJWTRZbFdnek05aWNtMHJjOUNBQdIBckFVX3lxTE91dUxrZzVza0U5M0FRdVVjc3dXdnVsNm4xRURWR3BIMks0VUI4d2FlbGpudFRuRjljUnhNbk9LLXVwRGxUOU1QUEVhbnJEbnBVVnJReXVZN21aY1M3dGxJWTRZbFdnek05aWNtMHJjOUNBQQ?oc=5",
-          "source": "mt.co.kr",
+          "source": "머니투데이",
           "published": "2026-08-13T05:20:00+09:00",
           "placeholder": false
         },
@@ -331,10 +331,10 @@
           "placeholder": false
         },
         {
-          "title": "CJ올리브네트웍스, HD현대일렉트릭에 AI 물류 시스템 구축",
-          "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1OcmdKYW1XNkRndTNDcDJrVUhHeGt6SzdWY1NSQVdWZ2FnNEQwSVpBOGtDeUJLT1ZWeVJTUlJCUEV0cW1RcFZkdFNmNUwxOWlpX0RmMjM5bnRYdnJZc2xqb9IBeEFVX3lxTE5DdzVKSGh5eWNmaTRhWjNpdDFlNXFwU0MwSjNLN2tGLTdqRTRDNmFVQkl1aG5tMUxpbC1aMXNXQkFxXzZZZk9NelRhYXI5eVVIcVpVVEhQdVV1MzJNenFnUGwwZThPNDZjdWlnQk1mYWEzYWxYMzNSZw?oc=5",
-          "source": "뉴시스",
-          "published": "2026-08-11T15:21:12+09:00",
+          "title": "CJ올리브네트웍스, HD현대일렉트릭 청주공장 물류 AX 전환…차세대 WMS 구축",
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5QREpFNnJwOE8xR2gzWWtLb2xvakotbFM4QzBNdFQ0eWQxNjF0OXdYakpLOTlJcnYwSnJxd3d0bW4yU3VJaFRfeHJMYXRyMmJmeHloZW5ra2tkOFNjakFWLUV2SmRPTHE4MHl5ajQ1VkxhUdIBckFVX3lxTE5QREpFNnJwOE8xR2gzWWtLb2xvakotbFM4QzBNdFQ0eWQxNjF0OXdYakpLOTlJcnYwSnJxd3d0bW4yU3VJaFRfeHJMYXRyMmJmeHloZW5ra2tkOFNjakFWLUV2SmRPTHE4MHl5ajQ1VkxhUQ?oc=5",
+          "source": "팝콘뉴스",
+          "published": "2026-08-11T18:34:05+09:00",
           "placeholder": false
         },
         {
@@ -371,6 +371,13 @@
       "id": "global",
       "name": "글로벌 배터리",
       "articles": [
+        {
+          "title": "GM-LG엔솔 美오하이오 배터리공장 7개월 만에 재가동",
+          "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4yQzFOTHVDU1ZxTkJvQVBESlljalJHMVpMeEZIQ0N5SE9xWFB6dXdQT05HbGRaQ0k1UWs5cENtREMybG5EV1VSYXA5a2QwdXFiUGVWY0lnOXZKbUoyS2pUcFJvWWJJQjjSAWxBVV95cUxPcU52cFh1bUs0RWR1ZWlTbXpLaXJ5b3dGM2hJU25JTWEwd2VBN3dIb3lRXzd2NFYtSzVQeE9SdkVOd3JZR1R5bk53V3R1em9BLWtDQ25RTEU0Ym42Snp1X1I3UXg3LTN5MVR4RFg?oc=5",
+          "source": "뉴스1",
+          "published": "2026-08-13T10:35:34+09:00",
+          "placeholder": false
+        },
         {
           "title": "LG엔솔·GM 美 배터리 공장, 7개월 만에 생산 재개",
           "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE4xMTJzMzZHQkZxR2pfaDA4cHp6UXRxQmpuaDJaUFRGa1FfbEFzX2tfZHFfVzNTMHJ3Y1ByRGozX29tcWdaVmVRdmg1dFZrUm9HVXFEcjVmSDljQQ?oc=5",
@@ -412,13 +419,6 @@
           "source": "미디어펜",
           "published": "2026-08-12T09:07:54+09:00",
           "placeholder": false
-        },
-        {
-          "title": "\"전기차는 불황, 배터리는 활황\"…삼성SDI 美 단독 공장 기대감↑",
-          "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFB4ZnNfb05FYlR2MzRFZVE2aVVUd1NWZTZiRnctTEVCWlVtUTBnSHEyVWFmSHpEa2hKQjFKQ3VveFhPTVdYbWp1d1liUTY5UzN6YzNzeFlB?oc=5",
-          "source": "지디넷코리아",
-          "published": "2026-08-12T08:58:34+09:00",
-          "placeholder": false
         }
       ]
     },
@@ -426,13 +426,6 @@
       "id": "tech",
       "name": "기술 동향",
       "articles": [
-        {
-          "title": "'고체 전해질' 기업 솔리비스, 시리즈C 투자 유치…글로벌 공략 본격화",
-          "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBiSm1NNklTOHJnXy1WbnIyOXhjN2c0S0NrQ09LcF8tNlU0YVpIbllld2VJNzZXSHp0T2RzRUtjdVphVWEwOThKVUpxTm5kVmhLaGdXUklR?oc=5",
-          "source": "지디넷코리아",
-          "published": "2026-08-13T10:34:55+09:00",
-          "placeholder": false
-        },
         {
           "title": "솔리비스, 운영자금 230억 유치...전고체 배터리 공략 가속화",
           "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBoZ0VTX0RrUmtieWVWcDkyeFNidnd6QlVOcUVKYXNtMlNsTC15VTZkbkI4Z1R2QVRaekE2VmVyMXNDSjN1MkFwZWZhcUpYang3eDlPV25CdVlCUzd6?oc=5",
@@ -450,7 +443,7 @@
         {
           "title": "중저가부터 하이엔드까지…차세대 배터리 소재 보폭 넓히는 에코프로 - 머니투데이",
           "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1CM19mdFA1T1k1all3VTN0ZjR5d3lFUFd5djZKV0tyOE1rVnVIdDBpeFQzcThsZmVTajJiOEEtOU96cXNLX3hVZmdsbzRJQ2w0YjFoYmFzSE5hZVZiY19NTHlrNkZ2X3FKQVJtc9IBckFVX3lxTE91dUxrZzVza0U5M0FRdVVjc3dXdnVsNm4xRURWR3BIMks0VUI4d2FlbGpudFRuRjljUnhNbk9LLXVwRGxUOU1QUEVhbnJEbnBVVnJReXVZN21aY1M3dGxJWTRZbFdnek05aWNtMHJjOUNBQQ?oc=5",
-          "source": "mt.co.kr",
+          "source": "머니투데이",
           "published": "2026-08-13T05:20:00+09:00",
           "placeholder": false
         },
@@ -473,6 +466,13 @@
           "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBTZVdXRXJwX3hETDRrTTVKLU8wOFFKa3JZYndPckV6dTJlQ2p1UWJkZm1mSVh1d2ZmMnV2WE94ZnFrVjBtMUIwS2plbEtrOVdhak1vMnNWWDZHdlN2Q2NLZjYwTUMtVlQtVzBtd2VjdklTZG82R2c?oc=5",
           "source": "dailycar.co.kr",
           "published": "2026-08-12T08:14:20+09:00",
+          "placeholder": false
+        },
+        {
+          "title": "CATL·BYD, 2027년 전고체 배터리 시범 생산… 차세대 전기차 시장 ‘운명의 해’",
+          "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUnpZZVJkdmQwX05VVXNZQm42SkpOaENpVWExN1lnRmRHOFRHVzA3YkdPNjZNUW9XdFFieXg5LWp6SDdRTW9FbjRZQTA5eWkyQWExWm5WZUR4aGVlZjZtMDdOUU1oZXZSXzlidFNhSF84MFVyRTh2Q3NMc2gzcU1RM0l2bHJna2l0?oc=5",
+          "source": "글로벌이코노믹",
+          "published": "2026-08-12T05:25:00+09:00",
           "placeholder": false
         }
       ]
