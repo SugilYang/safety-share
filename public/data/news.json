@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-13T11:03:01.910841+09:00",
+  "generated_at": "2026-08-13T11:09:09.035537+09:00",
   "paper": "이티에스",
   "sections": [
     {
@@ -30,7 +30,7 @@
         {
           "title": "피엔티, 신사업 양산·AI 장비로 하반기 실적 개선 정조준",
           "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBGQ1lEWEpGMU1OR2NCYkJDZG1EYnduWGZrdHlIa0RpYXBEZDhJNHVEaWI3TWtYbDB1SU5aU1BPbWwyNHZsb1BVcnlzeTliU0p3OUtHRk1LWFBnYmxiVEdCVzA4RHY0SVN0eVE?oc=5",
-          "source": "the-stock.kr",
+          "source": "더스탁(The Stock)",
           "published": "2026-08-12T15:54:57+09:00",
           "placeholder": false
         },
@@ -65,7 +65,7 @@
         {
           "title": "반도체는 착시 우려, 충북 이차전지 소부장 기대감",
           "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBoNXF1Q25TT0I3anN0N09tMnd6TXUydWFlR0VsMU5GVFZVUVkzcHAtOGJPV1dNc05udl9JQkpXWnJZTGpWdUZmb1FrdGtTUFVGeHIwUi1CcFhCY3QwOEUzUVBn?oc=5",
-          "source": "충북일보",
+          "source": "inews365.com",
           "published": "2026-08-11T17:22:10+09:00",
           "placeholder": false
         }
@@ -92,8 +92,15 @@
         {
           "title": "반도체는 착시 우려, 충북 이차전지 소부장 기대감",
           "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBoNXF1Q25TT0I3anN0N09tMnd6TXUydWFlR0VsMU5GVFZVUVkzcHAtOGJPV1dNc05udl9JQkpXWnJZTGpWdUZmb1FrdGtTUFVGeHIwUi1CcFhCY3QwOEUzUVBn?oc=5",
-          "source": "충북일보",
+          "source": "inews365.com",
           "published": "2026-08-11T17:22:10+09:00",
+          "placeholder": false
+        },
+        {
+          "title": "LG에너지솔루션, 장중 약보합세 지속…수급 불균형 발목 : 기업주식정보",
+          "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE42cGU0MzhMZ0JxUUJXRTg5SnJSSUlhWW15S2dyYU92cWpPNjhDZjF0Zk9QLVlBR2VyT1lVdFREdHVIaGFCUVVidGNR?oc=5",
+          "source": "재경일보",
+          "published": "2026-08-11T10:22:00+09:00",
           "placeholder": false
         },
         {
@@ -122,13 +129,6 @@
           "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE4yT2t0ZmcxQUNDSDVsUWJDUXpRM3J5M1VIdy1BT01Hdnd0V1hPQTZTcEw0Rk4wN0dRYURJcDY2WngtQmlFbm1ESU5aNk5JWkJHamlMMEVfcGJZT0xDOE92amNiRjV6ZDJB?oc=5",
           "source": "씽크풀 AI",
           "published": "2026-08-06T07:06:13+09:00",
-          "placeholder": false
-        },
-        {
-          "title": "끝 보이는 전기차 캐즘에 AI 투자 확대… ‘동반 흑자’ 배터리 3사, 하반기에도 훈풍 전망 - 조선비즈",
-          "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQSjBRR1ZLaTIwMjlfRDQwVmhEZ0ppNWU3bjJadGljU1oydmllNkVudUt5OXBTY3VIVFY2cUw5Q1dXaFI1WnFsb29VNks4cjBJQVhxMFhOc20wd2pPejJWMVZRMENWcDVlSEcxem9Tc1pjLThQcU92T052REQzb0p3X2x4d3PSAZgBQVVfeXFMT0tkQ1dGY05zTXZOSTVXVld6S05wa2NIeG5CazRWVko3WXRGS0NBWGM4aFhJMHVGRHprMzNKVDVubXhicW5tYUF1SGRkeUh2bk5Ub0FpdG1oRFlhRDhEMC1mTXkzTmsyaFJEY2NpSGR3cUgtY25uQXI0a1NGem5SWmRKSXRRc2F4UGZWOU1tTV9yUmdIcjU1MXI?oc=5",
-          "source": "Chosunbiz",
-          "published": "2026-08-03T16:00:00+09:00",
           "placeholder": false
         }
       ]
@@ -161,7 +161,7 @@
         {
           "title": "구평동 YK스틸 화재 9일 새벽 완진…고철 속 리튬배터리 발화추정",
           "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5Ka1ItN0VqUXBoakg5T2NGS04zRENLMlpGR3hLWVdCSExUQVI4cFViSmVaTnBrMzJOcHRPR045YTZWcmgxbVlqN0pUM2VfSGJjR1luLVZjZS1LYlZzZVdWWDBCR1VEUURl?oc=5",
-          "source": "복지TV부울경방송",
+          "source": "wbcb.co.kr",
           "published": "2026-08-09T12:30:55+09:00",
           "placeholder": false
         },
@@ -182,7 +182,7 @@
         {
           "title": "서울 지하철 전동킥보드 반입 금지…리튬배터리 화재로부터 시민안전 지킨다",
           "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1hT0hZSklYTG1vUHlTRkJaZjhvVTgwa0haTi13UENiNFBoNnhKOVVXZjJIc0ZqajZIT0s3cExZbFFfdkhmYk9xSC1EYWZSa0FYUm93T3JmQkxCWEU3R09LZnJ4YlFjZ2taVVNWV3VlQQ?oc=5",
-          "source": "세이프티퍼스트닷뉴스",
+          "source": "safety1stnews.com",
           "published": "2026-07-31T16:00:00+09:00",
           "placeholder": false
         },
@@ -202,7 +202,7 @@
         {
           "title": "고용노동부 충주지청, 음성 대소산업단지서 '안전문화 실천 관계기관 합동 캠페인' 진행",
           "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBPSTNWeTNSNV96WUF5RW84RHhDcU1kbUJMWWdNUUFYUjU2OGdJVnBvYk5fX3FWZDljeUJOZUtnM2VTdnl0elZLN1plRW9LNmR0OFMwQ0wzNjhUSGQ0Nks4UC1B?oc=5",
-          "source": "충북일보",
+          "source": "inews365.com",
           "published": "2026-08-13T10:55:31+09:00",
           "placeholder": false
         },
@@ -331,13 +331,6 @@
           "placeholder": false
         },
         {
-          "title": "CJ올리브네트웍스, HD현대일렉트릭 청주공장 물류 AX 전환…차세대 WMS 구축",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5QREpFNnJwOE8xR2gzWWtLb2xvakotbFM4QzBNdFQ0eWQxNjF0OXdYakpLOTlJcnYwSnJxd3d0bW4yU3VJaFRfeHJMYXRyMmJmeHloZW5ra2tkOFNjakFWLUV2SmRPTHE4MHl5ajQ1VkxhUdIBckFVX3lxTE5QREpFNnJwOE8xR2gzWWtLb2xvakotbFM4QzBNdFQ0eWQxNjF0OXdYakpLOTlJcnYwSnJxd3d0bW4yU3VJaFRfeHJMYXRyMmJmeHloZW5ra2tkOFNjakFWLUV2SmRPTHE4MHl5ajQ1VkxhUQ?oc=5",
-          "source": "팝콘뉴스",
-          "published": "2026-08-11T18:34:05+09:00",
-          "placeholder": false
-        },
-        {
           "title": "CJ올리브네트웍스, HD현대일렉트릭 물류 AI 전환 지원",
           "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFBJVFQ2SVNsQWxwZG5LMkNBaUFoZnpUTi11TkVXYnFLQkFBWlRUZFgweHlwS0pMTHlReFZ4ZEpSci1IRkFneEE?oc=5",
           "source": "v.daum.net",
@@ -363,6 +356,13 @@
           "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9NTTZ2amxmOWhuLTZTYVJreVdHbENqa0Yya1NfZUdOTkVkSXhRS3JpWmE0ajB5ejBvcHlPMVd0TFlzVEJkRmd1enBaWW85em92WnRUMEV1aW5oS0ZON3FhOHM1dThRbGE2SUhF?oc=5",
           "source": "라이센스뉴스",
           "published": "2026-08-11T09:57:06+09:00",
+          "placeholder": false
+        },
+        {
+          "title": "CJ올리브네트웍스, HD현대일렉트릭 차세대 물류 시스템(WMS) 구축",
+          "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1Wc0VuNE5kVmEwdmVNcGxmb0RwV0xWb1RLdFpFV2dEemJWV21BSEhSWllEclpXQUMxZnM3MTNZWmt1QjJ1RlI0Tjc3OEVEWm9KTGNaRGdtQ004d9IBWEFVX3lxTE1vZXU4dk9jNnpRZTNGMjFPUE9Ua0ZUMEp2QUgtX3BsbVl6eGdJdGxWNENISHFEQXU5UHN2MTViekljV0xyallyb2d2U19YZV9EeUtraWdnRlg?oc=5",
+          "source": "아주경제",
+          "published": "2026-08-11T09:55:43+09:00",
           "placeholder": false
         }
       ]
@@ -427,6 +427,13 @@
       "name": "기술 동향",
       "articles": [
         {
+          "title": "'고체전해질 기업' 솔리비스 230억 투자유치",
+          "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5OMUxNVXJmc3NxdXR5c1VIZUNoUWVPd0MtM1VMY0N0eU0xQ24xMi1sWElEd01ad2sxbWJEbTZ0NXcyakpyR0NNdFZKX0txcUstSE91SnNBblkyMWpaMDM5eWRqOGZQNlZzemE4Y21laWo?oc=5",
+          "source": "코리아리포트",
+          "published": "2026-08-13T10:59:52+09:00",
+          "placeholder": false
+        },
+        {
           "title": "솔리비스, 운영자금 230억 유치...전고체 배터리 공략 가속화",
           "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBoZ0VTX0RrUmtieWVWcDkyeFNidnd6QlVOcUVKYXNtMlNsTC15VTZkbkI4Z1R2QVRaekE2VmVyMXNDSjN1MkFwZWZhcUpYang3eDlPV25CdVlCUzd6?oc=5",
           "source": "뉴스핌",
@@ -466,13 +473,6 @@
           "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBTZVdXRXJwX3hETDRrTTVKLU8wOFFKa3JZYndPckV6dTJlQ2p1UWJkZm1mSVh1d2ZmMnV2WE94ZnFrVjBtMUIwS2plbEtrOVdhak1vMnNWWDZHdlN2Q2NLZjYwTUMtVlQtVzBtd2VjdklTZG82R2c?oc=5",
           "source": "dailycar.co.kr",
           "published": "2026-08-12T08:14:20+09:00",
-          "placeholder": false
-        },
-        {
-          "title": "CATL·BYD, 2027년 전고체 배터리 시범 생산… 차세대 전기차 시장 ‘운명의 해’",
-          "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUnpZZVJkdmQwX05VVXNZQm42SkpOaENpVWExN1lnRmRHOFRHVzA3YkdPNjZNUW9XdFFieXg5LWp6SDdRTW9FbjRZQTA5eWkyQWExWm5WZUR4aGVlZjZtMDdOUU1oZXZSXzlidFNhSF84MFVyRTh2Q3NMc2gzcU1RM0l2bHJna2l0?oc=5",
-          "source": "글로벌이코노믹",
-          "published": "2026-08-12T05:25:00+09:00",
           "placeholder": false
         }
       ]
