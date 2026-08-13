@@ -49,22 +49,15 @@ jobs:
             git push
           fi
 
-      # 아래 Pages 단계는 저장소 Settings→Pages에서 Source를 'GitHub Actions'로
-      # 한 번 켜면 매일 자동 배포됩니다. 아직 안 켰다면 실패해도 위 커밋은 유지됩니다.
-      - name: Pages 설정 (자동 활성화 시도)
-        id: pages
-        continue-on-error: true
+      # Pages는 이미 활성화되어 있으므로 그대로 배포합니다.
+      - name: Pages 설정
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: 지면 업로드
-        if: steps.pages.outcome == 'success'
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
       - name: GitHub Pages 배포
-        if: steps.pages.outcome == 'success'
         id: deployment
         uses: actions/deploy-pages@v4
