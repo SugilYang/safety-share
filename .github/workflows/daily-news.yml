@@ -41,8 +41,10 @@ jobs:
       - name: 뉴스 수집 및 지면 생성
         run: python scripts/fetch_news.py
 
-      - name: Pages 설정
+      - name: Pages 설정 (자동 활성화 포함)
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: 지면 업로드
         uses: actions/upload-pages-artifact@v3
