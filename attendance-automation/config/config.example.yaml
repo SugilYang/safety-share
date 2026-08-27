@@ -1,0 +1,109 @@
+# =============================================================
+# 근태자동화 설정 파일
+#
+# 사용법:
+#   1) 이 파일을 복사해서 config/config.yaml 로 저장
+#   2) 아래 값들을 회사 PC 환경에 맞게 수정
+#   3) 세콤매니저/ERP의 버튼·메뉴 정보(steps)는
+#      src/tools/inspect_windows.py 실행 결과를 바탕으로 채움
+#
+# 계정/비밀번호는 이 파일에 절대 쓰지 말 것!
+#   → 프로젝트 루트의 .env 파일에 저장 (예: SECOM_ID=..., SECOM_PW=...)
+#   → steps 안에서 ${SECOM_ID} 처럼 참조하면 자동 치환됨
+# =============================================================
+
+general:
+  # 다운로드된 엑셀이 모이는 폴더 (없으면 자동 생성)
+  download_dir: "C:\\근태자동화\\다운로드"
+  # 통합 결과가 저장되는 폴더
+  output_dir: "C:\\근태자동화\\결과"
+  # 조회 기간: 실행일 기준 며칠 전부터 오늘까지 (예: 1 = 어제~오늘)
+  days_back: 1
+
+# -------------------------------------------------------------
+# 다운로드 소스 목록 — 3군데를 모두 여기에 정의
+# type:
+#   client = PC 설치 프로그램 (pywinauto)  ← 세콤매니저, 영림원 K-System 등
+#   web    = 웹 브라우저 (playwright)      ← 웹 ERP인 경우
+# -------------------------------------------------------------
+sources:
+
+  # ① 세콤매니저 (PC 설치 프로그램) — 출입/근태 기록
+  - name: secom
+    type: client
+    enabled: true
+    exe_path: "C:\\Program Files (x86)\\S1\\SecomManager\\SecomManager.exe"   # 실제 설치 경로로 수정
+    window_title_re: ".*(세콤|SECOM|Secom).*"   # 메인 창 제목 (inspect 결과로 확인)
+    backend: "uia"          # uia 로 안 잡히면 "win32" 로 변경
+    # 다운로드 후 이 패턴의 파일이 생기면 성공으로 판정
+    expect_file_pattern: "*출입*.xls*"
+    # ▼▼ inspect_windows.py 결과를 받아 채우는 부분 ▼▼
+    steps:
+      - {action: start_app}
+      - {action: wait_window, timeout: 30}
+      # 로그인 화면 예시 (실제 컨트롤명은 inspect 결과로 교체)
+      - {action: set_text, control: {auto_id: "txtUserId"}, value: "${SECOM_ID}"}
+      - {action: set_text, control: {auto_id: "txtPassword"}, value: "${SECOM_PW}"}
+      - {action: click,    control: {title: "로그인", control_type: "Button"}}
+      - {action: wait, seconds: 5}
+      # 메뉴 이동 → 기간 설정 → 조회 → 엑셀 저장 (실제 화면에 맞게 교체)
+      - {action: click,    control: {title: "출입기록", control_type: "TabItem"}}
+      - {action: set_text, control: {auto_id: "dtFrom"}, value: "${DATE_FROM}"}
+      - {action: set_text, control: {auto_id: "dtTo"},   value: "${DATE_TO}"}
+      - {action: click,    control: {title: "조회", control_type: "Button"}}
+      - {action: wait, seconds: 10}
+      - {action: click,    control: {title: "엑셀", control_type: "Button"}}
+      # 저장 대화상자 처리
+      - {action: save_dialog, filename: "세콤_출입기록_${TODAY}.xlsx"}
+      - {action: wait_file, timeout: 60}
+      - {action: close_app}
+
+  # ② ERP 근태 데이터
+  - name: erp_attendance
+    type: client            # 웹 ERP면 web 으로 변경
+    enabled: true
+    exe_path: "C:\\KSystem\\KSystem.exe"     # 실제 ERP 실행 파일 경로로 수정
+    window_title_re: ".*(K-System|KSystem|ERP).*"
+    backend: "uia"
+    expect_file_pattern: "*근태*.xls*"
+    steps:
+      - {action: start_app}
+      - {action: wait_window, timeout: 60}
+      - {action: set_text, control: {auto_id: "txtId"}, value: "${ERP_ID}"}
+      - {action: set_text, control: {auto_id: "txtPw"}, value: "${ERP_PW}"}
+      - {action: click,    control: {title: "확인", control_type: "Button"}}
+      - {action: wait, seconds: 10}
+      # 이후 메뉴 이동/조회/엑셀 저장 단계는 inspect 결과로 채움
+
+  # ③ ERP 휴가/연차 등 세 번째 자료 (필요에 맞게 수정)
+  - name: erp_leave
+    type: client
+    enabled: false          # 준비되면 true
+    exe_path: "C:\\KSystem\\KSystem.exe"
+    window_title_re: ".*(K-System|KSystem|ERP).*"
+    backend: "uia"
+    expect_file_pattern: "*휴가*.xls*"
+    steps: []
+
+  # (참고) 웹 ERP인 경우 예시 — type: web
+  # - name: erp_web
+  #   type: web
+  #   enabled: false
+  #   url: "https://erp.회사도메인.co.kr"
+  #   expect_file_pattern: "*근태*.xls*"
+  #   steps:
+  #     - {action: goto}
+  #     - {action: fill,  selector: "#userId", value: "${ERP_ID}"}
+  #     - {action: fill,  selector: "#userPw", value: "${ERP_PW}"}
+  #     - {action: click, selector: "button.login"}
+  #     - {action: click, selector: "text=근태관리"}
+  #     - {action: download, selector: "text=엑셀다운로드"}
+
+# -------------------------------------------------------------
+# 통합 설정
+# -------------------------------------------------------------
+integrate:
+  # 통합 결과 파일명 (${TODAY} = YYYYMMDD)
+  output_filename: "통합근태_${TODAY}.xlsx"
+  # custom_integrate.py 가 있으면 그 로직을 사용, 없으면 기본 통합(소스별 시트 합본)
+  use_custom: true

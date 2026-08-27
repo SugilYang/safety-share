@@ -1,0 +1,9 @@
+# 근태자동화 필수 패키지 (Windows 회사 PC 기준)
+pywinauto>=0.6.8        # 세콤매니저/ERP 등 PC 설치 프로그램 자동화
+pyautogui>=0.9.54       # 좌표 기반 폴백 자동화
+pandas>=2.0             # 엑셀 통합
+openpyxl>=3.1           # xlsx 읽기/쓰기
+xlrd>=2.0               # 구형 xls 읽기 (세콤/ERP가 xls로 내보내는 경우)
+PyYAML>=6.0             # 설정 파일
+python-dotenv>=1.0      # 계정 정보(.env) 로드
+playwright>=1.40        # ERP가 웹 방식일 경우 사용 (설치 후: playwright install chromium)

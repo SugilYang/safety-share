@@ -1,0 +1,12 @@
+# 계정 정보 — 절대 커밋 금지
+.env
+
+# 실제 환경 설정 (예시 파일만 커밋)
+config/config.yaml
+custom_integrate.py
+
+# 실행 산출물
+logs/
+.venv/
+__pycache__/
+*.pyc
