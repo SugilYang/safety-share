@@ -61,6 +61,12 @@
   #tagBox.it{color:#ff6b6b}
   #tagBox.run{color:#7fd1a6}
   #speedo{font-size:14px;font-weight:800;text-align:right}
+  .midCol,.rightCol{display:flex;flex-direction:column;gap:6px}
+  .midCol{align-items:center}
+  .rightCol{align-items:flex-end}
+  #map{width:clamp(96px,24vw,132px);height:clamp(96px,24vw,132px);border-radius:12px;
+    border:2px solid rgba(255,255,255,.25);background:rgba(20,26,34,.75)}
+  #starBox{font-size:15px;font-weight:800;color:#ffd24a;letter-spacing:2px;white-space:nowrap}
 
   /* ---------- 조작 ---------- */
   #stick{position:fixed;width:132px;height:132px;border-radius:50%;border:2px solid rgba(255,255,255,.3);
@@ -108,6 +114,7 @@
       <button class="btn" id="bHost">방 만들기</button>
       <button class="btn blue" id="bJoin">코드로 참가하기</button>
       <button class="btn ghost" id="bSolo">혼자 둘러보기</button>
+      <button class="btn ghost" id="bBlood" style="font-size:15px;padding:12px">피 효과: 켜짐</button>
     </div>
     <div id="pHost" class="pane">
       <p class="hint">아들 폰에서 이 숫자를 입력하세요</p>
@@ -139,8 +146,14 @@
       <div id="hpBar"><div id="hpFill"></div></div>
       <div id="weapon" style="margin-top:6px">주먹</div>
     </div>
-    <div class="panel" id="tagBox">－</div>
-    <div class="panel" id="speedo" style="visibility:hidden">0 km/h</div>
+    <div class="midCol">
+      <div class="panel" id="tagBox">－</div>
+      <div class="panel" id="starBox" style="display:none">★</div>
+    </div>
+    <div class="rightCol">
+      <canvas id="map" width="132" height="132"></canvas>
+      <div class="panel" id="speedo" style="visibility:hidden">0 km/h</div>
+    </div>
   </div>
 </div>
 
@@ -217,15 +230,24 @@ const SKIN = [
   { name:'초록', hex:0x43b562 }, { name:'보라', hex:0x9a5fd4 }
 ];
 
-// 무기: 사거리(m), 피해, 쿨타임(초), 투척 여부
+// 무기: 사거리(m), 피해, 쿨타임(초)
 const WEAPONS = {
-  fist:    { name:'주먹',     range:2.3, dmg:12, cd:0.34, throw:false },
-  kick:    { name:'발차기',   range:2.6, dmg:18, cd:0.52, throw:false },
-  bat:     { name:'야구방망이', range:3.2, dmg:30, cd:0.60, throw:false },
-  balloon: { name:'물풍선',   range:0,   dmg:15, cd:0.55, throw:true, ammo:6, speed:26 },
-  blaster: { name:'블래스터', range:0,   dmg:20, cd:0.28, throw:true, ammo:20, speed:52 }
+  fist:    { name:'주먹',     range:2.3, dmg:12, cd:0.34 },
+  kick:    { name:'발차기',   range:2.6, dmg:18, cd:0.52 },
+  bat:     { name:'야구방망이', range:3.2, dmg:30, cd:0.60 },
+  balloon: { name:'물풍선',   range:0, dmg:15, cd:0.55, throw:true, ammo:6,  speed:26 },
+  blaster: { name:'블래스터', range:0, dmg:20, cd:0.28, throw:true, ammo:20, speed:52 },
+  pistol:  { name:'권총',     range:0, dmg:20, cd:0.30, gun:true, ammo:30, speed:115, spread:0.02, pellets:1 },
+  smg:     { name:'기관총',   range:0, dmg:11, cd:0.09, gun:true, ammo:110, speed:125, spread:0.055, pellets:1 },
+  shotgun: { name:'샷건',     range:0, dmg:9,  cd:0.80, gun:true, ammo:20, speed:95,  spread:0.13, pellets:6 }
 };
-const PICKUP_KINDS = ['bat', 'balloon', 'blaster'];
+const PICKUP_KINDS = ['bat', 'balloon', 'blaster', 'pistol', 'smg', 'shotgun'];
+const PICKUP_COL = { bat:0xc98b4a, balloon:0x4fc3f7, blaster:0xff6ad5,
+                     pistol:0xbfc6cf, smg:0x8a919b, shotgun:0x6f7a86 };
+
+// 피 효과 (시작 화면에서 끌 수 있음)
+const BLOOD = { on:true };
+try { if (localStorage.getItem('blood') === 'off') BLOOD.on = false; } catch(e){}
 
 /* 두 폰에서 도시가 똑같이 만들어져야 하므로 고정 씨앗 난수를 쓴다 */
 function mulberry32(a){
@@ -276,6 +298,8 @@ function boot(){
   buildCars();
   buildPickups();
   makeNpcs();
+  buildBlood();
+  mapCtx = $('map').getContext('2d');
 
   me  = makePlayer(SKIN[0].hex, true);
   foe = makePlayer(SKIN[1].hex, false);
@@ -524,14 +548,14 @@ function makeVehicle(type, hex){
 /* ---- 무기 픽업 ---- */
 function buildPickups(){
   const rnd = mulberry32(4242);
-  for (let k = 0; k < 16; k++){
+  for (let k = 0; k < 24; k++){
     const kind = PICKUP_KINDS[k % PICKUP_KINDS.length];
     const onX = rnd() < 0.5;
     const road = ORG + ((rnd() * (BLOCKS + 1)) | 0) * CELL;
     const along = ORG + 14 + rnd() * (CITY - 28);
     const x = onX ? road : along, z = onX ? along : road;
 
-    const col = kind === 'bat' ? 0xc98b4a : kind === 'balloon' ? 0x4fc3f7 : 0xff6ad5;
+    const col = PICKUP_COL[kind] || 0xffffff;
     const m = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.1, 1.1),
       new THREE.MeshLambertMaterial({ color:col }));
     m.position.set(x, 1.3, z);
@@ -542,8 +566,13 @@ function buildPickups(){
 
 /* ---- 길가는 사람들 ---- */
 const npcs = [];
-const NPC_N = 18;
+const NPC_N = 28;          // 일반 행인
+const POLICE_N = 6;        // 경찰 (수배 상태일 때만 등장)
 let npcSend = 0;
+
+/* 수배 단계 — 범죄를 저지르면 올라가고, 가만히 있으면 내려간다 */
+let heat = 0, wanted = 0, heatHold = 0, foeWanted = 0;
+function crime(a){ heat = Math.min(600, heat + a); heatHold = 7; }
 
 function makeNpcs(){
   const rnd = mulberry32(31337);
@@ -551,17 +580,26 @@ function makeNpcs(){
   const skin  = new THREE.MeshLambertMaterial({ color:0xf2c396 });
   const pants = new THREE.MeshLambertMaterial({ color:0x3b4756 });
 
-  for (let i = 0; i < NPC_N; i++){
+  const copPants = new THREE.MeshLambertMaterial({ color:0x1b2438 });
+
+  for (let i = 0; i < NPC_N + POLICE_N; i++){
+    const cop = i >= NPC_N;
     const root = new THREE.Group();
-    const shirt = new THREE.MeshLambertMaterial({ color:cols[(rnd() * cols.length) | 0] });
+    const shirt = new THREE.MeshLambertMaterial({
+      color: cop ? 0x2f4f9e : cols[(rnd() * cols.length) | 0] });
+    const leg = cop ? copPants : pants;
     const torso = new THREE.Mesh(new THREE.BoxGeometry(0.95, 1.0, 0.52), shirt);
     torso.position.y = 1.42; root.add(torso);
     const head = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.66, 0.66), skin);
     head.position.y = 2.25; root.add(head);
+    if (cop){                                            // 경찰 모자
+      const cap = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.22, 0.72), shirt);
+      cap.position.y = 2.66; root.add(cap);
+    }
     const armL = limb(0.27, 0.95, 0.27, skin, true), armR = limb(0.27, 0.95, 0.27, skin, true);
     armL.position.set(-0.61, 1.9, 0); armR.position.set(0.61, 1.9, 0);
     root.add(armL, armR);
-    const legL = limb(0.33, 0.92, 0.33, pants, true), legR = limb(0.33, 0.92, 0.33, pants, true);
+    const legL = limb(0.33, 0.92, 0.33, leg, true), legR = limb(0.33, 0.92, 0.33, leg, true);
     legL.position.set(-0.24, 0.92, 0); legR.position.set(0.24, 0.92, 0);
     root.add(legL, legR);
     scene.add(root);
@@ -571,7 +609,10 @@ function makeNpcs(){
       root, armL, armR, legL, legR, animT: rnd() * 6,
       x: ORG + gi * CELL, y:0, z: ORG + gj * CELL, yaw:0,
       gi, gj, tx: ORG + gi * CELL, tz: ORG + gj * CELL,
-      fx:0, fz:0, state:0, t:0, vx:0, vz:0
+      fx:0, fz:0, t:0, vx:0, vz:0, atkT:0, tp:-1,
+      kind: cop ? 1 : 0,
+      hp: cop ? 90 : 55, maxhp: cop ? 90 : 55,
+      state: cop ? 9 : 0                                 // 9 = 아직 안 나타남
     });
   }
 }
@@ -586,51 +627,173 @@ function npcRetarget(n){
   n.tx = ORG + n.gi * CELL; n.tz = ORG + n.gj * CELL;
 }
 
-// 넘어뜨리기 (0.state: 0 걷기 / 1 넘어짐 / 2 도망)
-function knockNpc(i, dx, dz){
+/* 상태: 0 걷기 / 1 맞고 넘어짐 / 2 도망 / 3 덤빔·추격 / 4 기절 / 9 미등장
+   byWho: 이 사람을 때린 쪽 (0=방장 플레이어, 1=참가자)
+   local: 내가 때린 것이면 true (수배 점수는 때린 사람에게만 올라간다) */
+function damageNpc(i, dmg, dx, dz, byWho, local){
   const n = npcs[i];
-  if (!n || n.state === 1) return;
-  n.state = 1; n.t = 2.5;
-  n.vx = dx * 11; n.vz = dz * 11;
+  if (!n || n.state === 4 || n.state === 9) return;
+  n.hp -= dmg;
+  spurt(n.x, 1.75, n.z, 6);
+  n.vx = dx * 9; n.vz = dz * 9;
+  n.tp = byWho;
   n.fx = n.x - dx * 10; n.fz = n.z - dz * 10;      // 때린 쪽 = 도망칠 반대 방향
+  if (n.hp <= 0){ n.hp = 0; n.state = 4; n.t = 8; }
+  else { n.state = 1; n.t = 0.9; }
+  if (local){
+    crime(n.kind === 1 ? 75 : 26);
+    if (n.state === 4) crime(60);
+  }
 }
 
-function knockNpcsNear(x, z, r, dx, dz){
+// 내가 누구인지 (방장=0, 참가자=1) — 행인이 누구를 쫓을지 정할 때 쓴다
+function meIdx(){ return mode === 'guest' ? 1 : 0; }
+
+function hitNpc(i, dmg, dx, dz){                   // 내가 때렸을 때의 공통 처리
+  damageNpc(i, dmg, dx, dz, meIdx(), true);
+  if (mode === 'guest') send({ t:'nhit', i, dmg, dx, dz });
+}
+
+function knockNpcsNear(x, z, r, dx, dz){           // 차로 치기
   for (let i = 0; i < npcs.length; i++){
     const n = npcs[i];
-    if (n.state === 1) continue;
+    if (n.state === 1 || n.state === 4 || n.state === 9) continue;
     if (Math.hypot(n.x - x, n.z - z) > r) continue;
-    knockNpc(i, dx, dz);
-    if (mode === 'guest') send({ t:'nhit', i, dx, dz });
+    hitNpc(i, 55, dx, dz);
   }
+}
+
+/* ---- 피 효과 ---- */
+const bloods = [];
+let bloodIdx = 0;
+function buildBlood(){
+  const g = new THREE.BoxGeometry(0.17, 0.17, 0.17);
+  const m = new THREE.MeshBasicMaterial({ color:0xc2172a });
+  for (let i = 0; i < 48; i++){
+    const b = new THREE.Mesh(g, m);
+    b.visible = false; scene.add(b);
+    bloods.push({ mesh:b, life:0, vx:0, vy:0, vz:0 });
+  }
+}
+function spurt(x, y, z, n){
+  if (!BLOOD.on) return;
+  for (let k = 0; k < n; k++){
+    const p = bloods[bloodIdx = (bloodIdx + 1) % bloods.length];
+    p.mesh.position.set(x, y, z); p.mesh.visible = true;
+    p.vx = (Math.random() - 0.5) * 7; p.vy = 2 + Math.random() * 5;
+    p.vz = (Math.random() - 0.5) * 7; p.life = 0.7;
+  }
+}
+function updateBlood(dt){
+  for (const p of bloods){
+    if (p.life <= 0) continue;
+    p.life -= dt;
+    if (p.life <= 0){ p.mesh.visible = false; continue; }
+    p.vy -= 20 * dt;
+    p.mesh.position.x += p.vx * dt;
+    p.mesh.position.y += p.vy * dt;
+    p.mesh.position.z += p.vz * dt;
+  }
+}
+
+/* ---- 경찰 / 수배 ---- */
+function wantedTarget(){ return (wanted >= foeWanted || mode === 'solo') ? me : foe; }
+
+function spawnCop(n){
+  const tgt = wantedTarget();
+  const a = Math.random() * TAU;
+  n.x = tgt.x + Math.cos(a) * 44; n.z = tgt.z + Math.sin(a) * 44;
+  n.hp = n.maxhp; n.state = 3; n.t = 9999; n.atkT = 1.2;
+  n.tp = (tgt === me) ? 0 : 1;
+}
+
+function updateWanted(dt){
+  if (heatHold > 0) heatHold -= dt;
+  else heat = Math.max(0, heat - 14 * dt);
+  wanted = Math.min(5, Math.ceil(heat / 100));
+  if (mode === 'guest') return;                    // 경찰 투입은 방장이 관리
+  const w = Math.max(wanted, foeWanted);
+  let active = 0;
+  for (let i = NPC_N; i < npcs.length; i++) if (npcs[i].state !== 9) active++;
+  if (active < w){
+    for (let i = NPC_N; i < npcs.length && active < w; i++)
+      if (npcs[i].state === 9){ spawnCop(npcs[i]); active++; }
+  } else if (heat <= 0 && foeWanted <= 0 && active > 0){
+    for (let i = NPC_N; i < npcs.length; i++) npcs[i].state = 9;
+  }
+}
+
+// 행인/경찰이 사람을 때렸을 때 (방장이 계산해서 해당 플레이어에게 전달)
+function dealToPlayer(tp, dmg, kx, kz){
+  if (tp === 0) takeDamage(dmg, kx, kz);
+  else if (tp === 1) send({ t:'hit', d:dmg, kx, kz });
+}
+function npcTarget(n){
+  if (n.tp === 0) return me;
+  if (n.tp === 1 && mode !== 'solo' && foe.root.visible) return foe;
+  return null;
 }
 
 function updateNpcs(dt){
   for (const n of npcs){
-    if (n.state === 1){                              // 넘어져 있는 동안
+    if (n.state === 9) continue;                     // 아직 안 나타난 경찰
+    if (n.atkT > 0) n.atkT -= dt;
+
+    if (n.state === 4 || n.state === 1){             // 기절 / 맞고 넘어짐
       n.t -= dt;
       n.x += n.vx * dt; n.z += n.vz * dt;
       n.vx *= 0.87; n.vz *= 0.87;
-      if (n.t <= 0){ n.state = 2; n.t = 3.5; }
-    } else {
-      let tx, tz, sp;
-      if (n.state === 2){                            // 놀라서 도망
-        n.t -= dt;
-        tx = n.x + (n.x - n.fx); tz = n.z + (n.z - n.fz); sp = 7.2;
-        if (n.t <= 0){ n.state = 0; npcRetarget(n); }
-      } else {
-        tx = n.tx; tz = n.tz; sp = 3.4;
-        if (Math.hypot(tx - n.x, tz - n.z) < 2.5) npcRetarget(n);
+      if (n.t <= 0){
+        if (n.state === 4){ n.hp = n.maxhp; n.state = 2; n.t = 4; }
+        else if (n.kind === 1 || Math.random() < 0.5){ n.state = 3; n.t = 14; }
+        else { n.state = 2; n.t = 3.5; }
       }
-      let dx = tx - n.x, dz = tz - n.z;
-      const d = Math.hypot(dx, dz) || 1;
-      dx /= d; dz /= d;
-      n.x += dx * sp * dt; n.z += dz * sp * dt;
-      n.yaw = Math.atan2(dx, dz);
-      n.animT += dt * sp * 1.5;
+      collideBoxes(n, 0.55);
+      continue;
     }
+
+    let tx, tz, sp;
+    if (n.state === 3){                              // 덤비거나 추격
+      n.t -= dt;
+      const tgt = npcTarget(n);
+      if (!tgt || n.t <= 0){ n.state = 0; npcRetarget(n); collideBoxes(n, 0.55); continue; }
+      tx = tgt.x; tz = tgt.z;
+      sp = n.kind === 1 ? 7.6 : 6.2;
+      const d = Math.hypot(tx - n.x, tz - n.z) || 1;
+      if (n.kind === 1 && d < 26){                   // 경찰은 멈춰서 쏜다
+        if (n.atkT <= 0){ n.atkT = 1.1; copFire(n, tgt); }
+        if (d < 13) sp = 0;
+      } else if (d < 2.3){
+        if (n.atkT <= 0){ n.atkT = 1.2; npcPunch(n, tgt); }
+        sp = 0;
+      }
+    } else if (n.state === 2){                       // 놀라서 도망
+      n.t -= dt;
+      tx = n.x + (n.x - n.fx); tz = n.z + (n.z - n.fz); sp = 7.2;
+      if (n.t <= 0){ n.state = 0; npcRetarget(n); }
+    } else {                                         // 평소 걷기
+      tx = n.tx; tz = n.tz; sp = 3.4;
+      if (Math.hypot(tx - n.x, tz - n.z) < 2.5) npcRetarget(n);
+    }
+    let dx = tx - n.x, dz = tz - n.z;
+    const d = Math.hypot(dx, dz) || 1;
+    dx /= d; dz /= d;
+    n.x += dx * sp * dt; n.z += dz * sp * dt;
+    n.yaw = Math.atan2(dx, dz);
+    n.animT += dt * sp * 1.5;
     collideBoxes(n, 0.55);
   }
+}
+
+function npcPunch(n, tgt){
+  const dx = tgt.x - n.x, dz = tgt.z - n.z, d = Math.hypot(dx, dz) || 1;
+  dealToPlayer(n.tp, 9, dx / d, dz / d);
+}
+function copFire(n, tgt){
+  const dx = tgt.x - n.x, dz = tgt.z - n.z, d = Math.hypot(dx, dz) || 1;
+  spawnShot(n.x + dx / d * 1.2, 1.9, n.z + dz / d * 1.2,
+            dx / d * 110, 0, dz / d * 110, 'pistol', false, false);
+  if (Math.random() < 0.45) dealToPlayer(n.tp, 10, dx / d, dz / d);
 }
 
 // 참가자 쪽은 방장이 보내준 위치로 부드럽게 따라간다
@@ -645,9 +808,11 @@ function smoothNpcs(dt){
 
 function drawNpcs(){
   for (const n of npcs){
+    n.root.visible = n.state !== 9;
+    if (!n.root.visible) continue;
     n.root.position.set(n.x, 0, n.z);
     n.root.rotation.y = n.yaw;
-    if (n.state === 1){
+    if (n.state === 1 || n.state === 4){
       n.root.rotation.x = -1.2;
       n.armL.rotation.x = n.armR.rotation.x = 1.3;
       n.legL.rotation.x = n.legR.rotation.x = 0.2;
@@ -992,15 +1157,30 @@ function attack(){
   me.atkT = spec.cd; me.atkKind = w;
   send({ t:'atk', k:w });
 
-  if (spec.throw){
+  if (spec.gun){                                                // 총
+    if (me.ammo <= 0){ me.weapon = 'fist'; toast('총알이 떨어졌어요!'); return; }
+    me.ammo--;
+    if (me.ammo <= 0) setTimeout(() => { me.weapon = 'fist'; }, 300);
+    for (let k = 0; k < (spec.pellets || 1); k++){
+      const a = me.yaw + (Math.random() - 0.5) * spec.spread * 2;
+      const dx = Math.sin(a), dz = Math.cos(a);
+      const sx = me.x + dx * 1.3, sy = me.y + 1.85, sz = me.z + dz * 1.3;
+      spawnShot(sx, sy, sz, dx * spec.speed, 0, dz * spec.speed, w, true, false);
+      send({ t:'shot', x:sx, y:sy, z:sz,
+             dx:dx * spec.speed, dy:0, dz:dz * spec.speed, k:w, g:0 });
+    }
+    return;
+  }
+
+  if (spec.throw){                                              // 던지는 것
     if (me.ammo <= 0){ me.weapon = 'fist'; toast('다 썼어요 — 주먹으로!'); return; }
     me.ammo--;
     if (me.ammo <= 0) setTimeout(() => { me.weapon = 'fist'; }, 300);
     const dx = Math.sin(me.yaw), dz = Math.cos(me.yaw);
-    spawnShot(me.x + dx * 1.2, me.y + 1.9, me.z + dz * 1.2,
-              dx * spec.speed, 2.5, dz * spec.speed, w, true);
-    send({ t:'shot', x:me.x + dx * 1.2, y:me.y + 1.9, z:me.z + dz * 1.2,
-           dx:dx * spec.speed, dz:dz * spec.speed, k:w });
+    const sx = me.x + dx * 1.2, sy = me.y + 1.9, sz = me.z + dz * 1.2;
+    spawnShot(sx, sy, sz, dx * spec.speed, 2.5, dz * spec.speed, w, true, true);
+    send({ t:'shot', x:sx, y:sy, z:sz,
+           dx:dx * spec.speed, dy:2.5, dz:dz * spec.speed, k:w, g:1 });
     return;
   }
 
@@ -1019,14 +1199,13 @@ function meleeNpcs(spec){
   const sx = Math.sin(me.yaw), sz = Math.cos(me.yaw);
   for (let i = 0; i < npcs.length; i++){
     const n = npcs[i];
-    if (n.state === 1) continue;
+    if (n.state === 1 || n.state === 4 || n.state === 9) continue;
     const dx = n.x - me.x, dz = n.z - me.z;
     const d = Math.hypot(dx, dz);
     if (d > spec.range + 0.5 || d < 0.01) continue;
     if ((dx / d) * sx + (dz / d) * sz < 0.45) continue;      // 앞쪽만
-    knockNpc(i, dx / d, dz / d);
-    if (mode === 'guest') send({ t:'nhit', i, dx:dx / d, dz:dz / d });
-    toast('아야!', 700);
+    hitNpc(i, spec.dmg, dx / d, dz / d);
+    toast(n.kind === 1 ? '경찰을 때렸다!' : '아야!', 700);
     return true;
   }
   return false;
@@ -1037,32 +1216,42 @@ function hitFoe(dmg, kx, kz){
   toast('명중!', 800);
 }
 
-function spawnShot(x, y, z, vx, vz, kind, mine){
-  const col = kind === 'balloon' ? 0x4fc3f7 : 0xff6ad5;
-  const m = new THREE.Mesh(new THREE.SphereGeometry(0.32, 8, 6),
-    new THREE.MeshBasicMaterial({ color:col }));
+function spawnShot(x, y, z, vx, vy, vz, kind, mine, grav){
+  const spec = WEAPONS[kind] || {};
+  const col = spec.gun ? 0xfff0a0 : kind === 'balloon' ? 0x4fc3f7 : 0xff6ad5;
+  const geo = spec.gun ? new THREE.BoxGeometry(0.14, 0.14, 0.7)
+                       : new THREE.SphereGeometry(0.32, 8, 6);
+  const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color:col }));
   m.position.set(x, y, z);
+  m.rotation.y = Math.atan2(vx, vz);
   scene.add(m);
-  shots.push({ mesh:m, x, y, z, vx, vy:2.5, vz, kind, mine, life:2.4 });
+  shots.push({ mesh:m, x, y, z, vx, vy, vz, kind, mine, grav:!!grav,
+               dmg:spec.dmg || 10, life:spec.gun ? 1.1 : 2.4 });
+}
+
+// 총알이 건물에 막히는지
+function blocked(x, y, z){
+  for (const b of buildings)
+    if (x > b.x0 && x < b.x1 && z > b.z0 && z < b.z1 && y < b.top) return true;
+  return false;
 }
 
 function updateShots(dt){
   for (let i = shots.length - 1; i >= 0; i--){
     const s = shots[i];
     s.life -= dt;
-    s.vy -= 22 * dt;
+    if (s.grav) s.vy -= 22 * dt;
     s.x += s.vx * dt; s.y += s.vy * dt; s.z += s.vz * dt;
     s.mesh.position.set(s.x, s.y, s.z);
 
-    let gone = s.life <= 0 || s.y < 0.1;
-    if (!gone && s.mine){                                   // 행인에게 맞았나
+    let gone = s.life <= 0 || s.y < 0.1 || blocked(s.x, s.y, s.z);
+    if (!gone && s.mine){                                   // 사람에게 맞았나
       for (let j = 0; j < npcs.length; j++){
         const n = npcs[j];
-        if (n.state === 1) continue;
+        if (n.state === 1 || n.state === 4 || n.state === 9) continue;
         if (Math.hypot(s.x - n.x, s.z - n.z) < 1.2 && s.y < 2.6){
           const d = Math.hypot(s.vx, s.vz) || 1;
-          knockNpc(j, s.vx / d, s.vz / d);
-          if (mode === 'guest') send({ t:'nhit', i:j, dx:s.vx / d, dz:s.vz / d });
+          hitNpc(j, s.dmg, s.vx / d, s.vz / d);
           gone = true; break;
         }
       }
@@ -1070,7 +1259,7 @@ function updateShots(dt){
     if (!gone && s.mine && foe.root.visible && !foe.down){
       if (Math.hypot(s.x - foe.x, s.z - foe.z) < 1.3 && Math.abs(s.y - (foe.y + 1.4)) < 1.6){
         const d = Math.hypot(s.vx, s.vz) || 1;
-        hitFoe(WEAPONS[s.kind].dmg, s.vx / d, s.vz / d);
+        hitFoe(s.dmg, s.vx / d, s.vz / d);
         gone = true;
       }
     }
@@ -1081,6 +1270,7 @@ function updateShots(dt){
 function takeDamage(dmg, kx, kz){
   if (me.down) return;
   me.hp -= dmg;
+  spurt(me.x, me.y + 1.7, me.z, 5);
   me.kx = kx * 9; me.kz = kz * 9;
   $('flash').style.opacity = '0.35';
   setTimeout(() => $('flash').style.opacity = '0', 90);
@@ -1254,6 +1444,7 @@ function onData(m){
     case 's':
       foeTarget = m;
       foe.hp = m.h; foe.down = !!m.dn; foe.anim = m.a; foe.it = !!m.it;
+      foeWanted = m.wl || 0;
       if (m.c >= 0 && m.c < cars.length){                 // 상대가 탈것에 탄 상태
         cars[m.c].driver = 1; cars[m.c].x = m.x; cars[m.c].z = m.z; cars[m.c].yaw = m.r;
         foe.onBike = cars[m.c].spec.bike;                 // 오토바이면 탄 모습이 보임
@@ -1266,20 +1457,20 @@ function onData(m){
       break;
     case 'atk': foe.atkT = WEAPONS[m.k] ? WEAPONS[m.k].cd : 0.3; foe.atkKind = m.k; break;
     case 'hit': takeDamage(m.d, m.kx, m.kz); break;
-    case 'shot': spawnShot(m.x, m.y, m.z, m.dx, m.dz, m.k, false); break;
+    case 'shot': spawnShot(m.x, m.y, m.z, m.dx, m.dy || 0, m.dz, m.k, false, m.g !== 0); break;
     case 'down': foe.down = true; break;
     case 'tag': me.it = true; foe.it = false; me.tagCool = 3; toast('잡혔다! 내가 술래'); break;
     case 'car': if (m.i >= 0 && m.i < cars.length) cars[m.i].driver = 1; break;
     case 'npc': {                                    // 방장이 보내주는 행인 위치
       const a = m.a || [];
-      for (let i = 0; i < npcs.length && i * 4 + 3 < a.length; i++){
+      for (let i = 0; i < npcs.length && i * 5 + 4 < a.length; i++){
         const n = npcs[i];
-        n.ttx = a[i * 4]; n.ttz = a[i * 4 + 1];
-        n.yaw = a[i * 4 + 2]; n.state = a[i * 4 + 3];
+        n.ttx = a[i * 5]; n.ttz = a[i * 5 + 1];
+        n.yaw = a[i * 5 + 2]; n.state = a[i * 5 + 3]; n.hp = a[i * 5 + 4];
       }
       break;
     }
-    case 'nhit': knockNpc(m.i, m.dx, m.dz); break;   // 참가자가 때린 행인
+    case 'nhit': damageNpc(m.i, m.dmg || 20, m.dx, m.dz, 1, false); break;
   }
 }
 
@@ -1299,6 +1490,15 @@ function bindUI(){
     };
     wrap.appendChild(d);
   });
+
+  const bloodBtn = $('bBlood');
+  const showBlood = () => bloodBtn.textContent = '피 효과: ' + (BLOOD.on ? '켜짐' : '꺼짐');
+  showBlood();
+  bloodBtn.onclick = () => {
+    BLOOD.on = !BLOOD.on;
+    try { localStorage.setItem('blood', BLOOD.on ? 'on' : 'off'); } catch(e){}
+    showBlood();
+  };
 
   $('bHost').onclick = hostRoom;
   $('bJoin').onclick = () => { showPane('pJoin'); $('joinWait').textContent = ''; $('codeInput').focus(); };
@@ -1330,7 +1530,12 @@ function updateHUD(){
   $('hpFill').style.width = Math.max(0, me.hp) + '%';
   $('hpFill').style.background = me.hp > 55 ? '#5ddc7f' : me.hp > 25 ? '#ffd24a' : '#ff6b6b';
   const w = WEAPONS[me.weapon];
-  $('weapon').textContent = w.name + (w.throw ? ' ×' + me.ammo : '');
+  $('weapon').textContent = w.name + (w.ammo !== undefined ? ' ×' + me.ammo : '');
+  const sb = $('starBox');
+  if (wanted > 0){
+    sb.style.display = 'block';
+    sb.textContent = '수배 ' + '★'.repeat(wanted) + '☆'.repeat(5 - wanted);
+  } else sb.style.display = 'none';
   const tb = $('tagBox');
   if (mode === 'solo'){ tb.textContent = '자유 탐험'; tb.className = 'panel'; }
   else if (me.it){ tb.textContent = '내가 술래!'; tb.className = 'panel it'; }
@@ -1340,6 +1545,50 @@ function updateHUD(){
     sp.style.visibility = 'visible';
     sp.textContent = Math.round(Math.abs(cars[me.car].speed) * 3.6) + ' km/h';
   } else sp.style.visibility = 'hidden';
+}
+
+/* =====================================================================
+   12-2. 미니맵
+   ===================================================================== */
+let mapCtx = null;
+function drawMap(){
+  if (!mapCtx) return;
+  const S = 132, R = 155;                     // 화면 크기 / 보이는 반경(m)
+  const c = mapCtx;
+  c.clearRect(0, 0, S, S);
+  c.fillStyle = '#20262f'; c.fillRect(0, 0, S, S);
+
+  const to = (wx, wz) => [S / 2 + (wx - me.x) / R * (S / 2),
+                          S / 2 + (wz - me.z) / R * (S / 2)];
+  c.strokeStyle = '#39424e'; c.lineWidth = 3;
+  for (let i = 0; i <= BLOCKS; i++){
+    const cc = ORG + i * CELL;
+    let a = to(cc, -CITY / 2), b = to(cc, CITY / 2);
+    c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+    a = to(-CITY / 2, cc); b = to(CITY / 2, cc);
+    c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+  }
+
+  const dot = (wx, wz, col, r) => {
+    const q = to(wx, wz);
+    if (q[0] < -r || q[0] > S + r || q[1] < -r || q[1] > S + r) return;
+    c.fillStyle = col; c.beginPath(); c.arc(q[0], q[1], r, 0, TAU); c.fill();
+  };
+  for (const pk of pickups) if (pk.mesh.visible) dot(pk.x, pk.z, '#ffd24a', 2);
+  for (const v of cars) if (v.driver < 0) dot(v.x, v.z, '#6b7686', 2);
+  for (const n of npcs){
+    if (n.state === 9) continue;
+    dot(n.x, n.z, n.kind === 1 ? '#4f9cf9' : n.state === 3 ? '#ff6b6b' : '#93a2b3',
+        n.kind === 1 ? 3.5 : 2);
+  }
+  if (mode !== 'solo' && foe.root.visible) dot(foe.x, foe.z, '#7fd1a6', 4);
+
+  const q = to(me.x, me.z);                    // 나 (바라보는 방향으로)
+  c.save(); c.translate(q[0], q[1]); c.rotate(-me.yaw);
+  c.fillStyle = '#ffffff';
+  c.beginPath(); c.moveTo(0, 5); c.lineTo(3.6, -4); c.lineTo(-3.6, -4);
+  c.closePath(); c.fill();
+  c.restore();
 }
 
 /* =====================================================================
@@ -1378,24 +1627,27 @@ function loop(now){
   }
 
   updateShots(dt);
+  updateBlood(dt);
+  updateWanted(dt);
   if (mode === 'guest') smoothNpcs(dt); else updateNpcs(dt);
   drawNpcs();
   for (const pk of pickups) pk.mesh.rotation.y += dt * 2;
   drawCars();
   updateCamera(dt);
   updateHUD();
+  drawMap();
 
   if (mode !== 'solo' && now - lastSend > 50){
     lastSend = now;
     send({ t:'s', x:me.x, y:me.y, z:me.z, r:me.yaw, a:me.anim,
-           c:me.car, h:me.hp, dn:me.down ? 1 : 0, it:me.it ? 1 : 0 });
+           c:me.car, h:me.hp, dn:me.down ? 1 : 0, it:me.it ? 1 : 0, wl:wanted });
   }
   if (mode === 'host' && now - npcSend > 125){          // 행인 위치는 방장이 기준
     npcSend = now;
     const a = [];
     for (const n of npcs)
       a.push(Math.round(n.x * 10) / 10, Math.round(n.z * 10) / 10,
-             Math.round(n.yaw * 100) / 100, n.state);
+             Math.round(n.yaw * 100) / 100, n.state, n.hp | 0);
     send({ t:'npc', a });
   }
   renderer.render(scene, camera);
