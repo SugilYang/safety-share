@@ -180,7 +180,8 @@
 </div></div>
 
 <div id="toast"></div>
-<div id="rotate"><span>📱</span><div>폰을 가로로 돌려주세요</div></div>
+<div id="rotate"><span>📱</span><div>폰을 가로로 돌려주세요</div>
+  <div style="font-size:13px;font-weight:500;color:#9fb3c8">화면을 누르면 이대로 진행합니다</div></div>
 <div id="boot">게임을 불러오는 중…</div>
 
 <script>
@@ -213,7 +214,15 @@ loadScript([
   loadScript([
     'https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js'
-  ], err2 => { NET_OK = !err2; boot(); });
+  ], err2 => {
+    NET_OK = !err2;
+    // 초기화 중 오류가 나면 화면에 그대로 보여준다 (멈춘 채로 두지 않기 위해)
+    try { boot(); }
+    catch (e) {
+      document.getElementById('boot').textContent =
+        '오류가 났어요 ▸ ' + (e && e.message ? e.message : String(e));
+    }
+  });
 });
 
 /* =====================================================================
@@ -255,7 +264,7 @@ function trackPt(a, out){
   out = out || new THREE.Vector3();
   return out.set(r*Math.cos(a), trackH(a), r*Math.sin(a));
 }
-const _t1 = new THREE.Vector3(), _t2 = new THREE.Vector3();
+let _t1, _t2;   // three.js 로드 후 boot()에서 생성
 function trackTangent(a, out){
   trackPt(a - 0.003, _t1); trackPt(a + 0.003, _t2);
   out = out || new THREE.Vector3();
@@ -280,7 +289,7 @@ function groundY(x, z){
   const fade   = 1 - smoothstep(28, 115, d);         // 길에서 멀수록 0
   return trackH(a) * fade + (1 - onRoad) * bump(x, z);
 }
-const _n = new THREE.Vector3();
+let _n;
 function groundNormal(x, z, out){
   const e = 1.3;
   out = out || _n;
@@ -296,6 +305,12 @@ let myCar, foeCar, foeMarker;
 const dust = [];
 
 function boot(){
+  // 계산용 임시 객체들 (three.js 로드 이후에만 만들 수 있음)
+  _t1 = new THREE.Vector3(); _t2  = new THREE.Vector3(); _n    = new THREE.Vector3();
+  _nv = new THREE.Vector3(); _cam = new THREE.Vector3(); _look = new THREE.Vector3();
+  UP  = new THREE.Vector3(0, 1, 0);
+  _q1 = new THREE.Quaternion(); _q2 = new THREE.Quaternion();
+
   const canvas = document.getElementById('gl');
   renderer = new THREE.WebGLRenderer({ canvas, antialias:true, powerPreference:'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -320,6 +335,7 @@ function boot(){
   myCar  = makeCar(CARS[0].hex); scene.add(myCar.mesh);
   foeCar = makeCar(CARS[1].hex); scene.add(foeCar.mesh);
   foeCar.mesh.visible = false;
+  foeCar.shadow.visible = false;
 
   // 상대 위치 표시용 화살표
   const mg = new THREE.ConeGeometry(1.1, 2.4, 5);
@@ -626,8 +642,7 @@ function resetCars(){
   }
 }
 
-const UP = new THREE.Vector3(0,1,0);
-const _q1 = new THREE.Quaternion(), _q2 = new THREE.Quaternion(), _nv = new THREE.Vector3();
+let UP, _q1, _q2, _nv;
 
 function stepCar(car, dt, driving){
   const offroad = distToRoad(car.x, car.z) > ROAD_W*0.5;
@@ -953,13 +968,15 @@ function bindUI(){
     else toast('상대를 기다리는 중…', 3000);
   };
   $('bQuit').onclick = () => location.reload();
+  // 화면 회전 잠금을 켜둔 폰에서 갇히지 않도록, 눌러서 넘길 수 있게
+  $('rotate').addEventListener('click', () => $('rotate').classList.remove('armed'));
 }
 
 /* =====================================================================
    9. 메인 루프
    ===================================================================== */
 let prev = performance.now();
-const _cam = new THREE.Vector3(), _look = new THREE.Vector3();
+let _cam, _look;
 
 function loop(now){
   requestAnimationFrame(loop);
